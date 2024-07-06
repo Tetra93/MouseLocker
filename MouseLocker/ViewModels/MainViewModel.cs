@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace MouseLocker.ViewModels;
 
-public class MainViewModel : INotifyPropertyChanged
+public class MainViewModel
 {
 
     [DllImport("user32.dll")]
@@ -24,7 +24,6 @@ public class MainViewModel : INotifyPropertyChanged
     }
     
 
-    private string? _cursorPos = "0";
     public static int CursorX { get; set; }
     public static int CursorY { get; set; }
 
@@ -34,27 +33,12 @@ public class MainViewModel : INotifyPropertyChanged
         public int y;
     }
 
-    public string CursorPos
-    {
-        get { return _cursorPos; }
-        set
-        {
-            _cursorPos = $"Cursor position {CursorX}, {CursorY}";
-            OnPropertyChanged(nameof(CursorPos));
-        }
-    }
-
-    public event PropertyChangedEventHandler PropertyChanged; 
-
-    protected virtual void OnPropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
+    public static string CursorPos => $"{CursorX}, {CursorY}";
 
     public static string GetCoordinates()
     {
-        string coordinates = $"{CursorX}, {CursorY}";
-        return coordinates;
+        string CursorPos = $"{CursorX}, {CursorY}";
+        return CursorPos;
     }
 
     public static void FindCursor()
